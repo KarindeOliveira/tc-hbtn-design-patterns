@@ -26,7 +26,6 @@ public class NaveEspacial {
 
     @Override
     public String toString() {
-        return "Saude: " + saude + "-"+
-                "Ataque: " + ataque;
+        return String.format("Saude: %d - Ataque: %d", getSaude(), getAtaque());
     }
 }
