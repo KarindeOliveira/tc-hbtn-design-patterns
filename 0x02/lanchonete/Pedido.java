@@ -15,11 +15,22 @@ public class Pedido {
       itensForaCaixa.add(item);
     }
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "itensDentroCaixa=" + itensDentroCaixa +
-                ", itensForaCaixa=" + itensForaCaixa +
-                '}';
-    }
+  @Override
+  public String toString() {
+    final String[] result = {""};
+    result[0] += "\tFora da Caixa:\n";
+
+    this.itensForaCaixa.stream()
+            .forEach(itemPedido -> {
+              result[0] += "\t\t- " + itemPedido.getTipo() + " " + itemPedido.getNome() + "\n";
+            });
+
+    result[0] += "\tDentro da Caixa:\n";
+
+    this.itensDentroCaixa.stream()
+            .forEach(itemPedido -> {
+              result[0] += "\t\t- " + itemPedido.getTipo() + " " + itemPedido.getNome() + "\n";
+            });
+    return result[0];
+  }
 }

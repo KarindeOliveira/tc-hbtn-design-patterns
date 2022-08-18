@@ -27,9 +27,6 @@ public class ItemPedido {
 
     @Override
     public String toString() {
-        return "ItemPedido{" +
-                "tipo=" + tipo +
-                ", nome='" + nome + '\'' +
-                '}';
+        return "\t\t- " + tipo.name() + " " + nome;
     }
 }
