@@ -1,0 +1,40 @@
+   Arquitetura Hexagonal
+   
+   
+   
+Arquitetura hexagonal, consiste em dividir uma aplicação em camadas de acordo com suas responsabilidades e enfatizar uma camada em especial, onde ficará a lógica principal da aplicação, a camada de domínio ou domain (do termo original).
+
+Quando falamos em divisão de aplicação em camadas, o céu é o limite, porém cautela e caldo de galinha não fazem mal a ninguém.
+
+A divisão de uma aplicação em camadas pode ser feita de diferentes formas, vai depender da necessidade e realidade de cada aplicação. Podemos, por exemplo, dividir as camadas apenas a nível organizacional de código, utilizando pacotes ou outro meio de organizar arquivos e códigos, podemos dividir a aplicação em módulos fazendo com que cada módulo represente uma camada, que por sua vez, esses módulos podem estar em apenas um artefato ou podemos dividi-los utilizando artefatos diferentes e até mesmo colocar em servidores diferentes, podemos ir mais além, transformando esse módulos em aplicações independentes e definindo um protocolo de comunicação entre eles, assim, cada camada será uma aplicação diferente em servidores diferentes se comunicando por protocolos distintos, etc.
+
+Interface (Port)
+Interface é o meio pelo qual a lógica da camada de domínio é acessada, uma interface é caracterizada por ser simples, única, objetiva. É responsabilidade da camada disponibilizar interfaces para acesso a suas informações. A interface de uma camada será acessada pela sua camada seguinte. Interface nunca irá se preocupar com a formatação de resposta para o usuário, nem mesmo com a relevância dos dados para o mesmo, ela irá expor exatamente o que a lógica da camada de domínio retornar.
+
+A interface da camada de domínio também nunca será disponibilizada diretamente para um usuário, até porque isso lesionaria gravemente o encapsulamento, que é uma das técnicas defendidas e aplicadas nesta arquitetura. Interface será apenas um intermédio entre a camada de domínio e a camada seguinte, esta provavelmente estará servindo um usuário ou alguma outra aplicação externa.
+
+Serviço (Adapter)
+Serviço é uma camada seguinte da camada de domínio, que através das interfaces irá acessá-la e alimentar os sistemas externos que requisitam tal informação. O serviço nada mais é que o intermédio entre a camada de domínio e o requisitante da informação, que pode ser um usuário final ou aplicações externas. É responsabilidade do serviço se preocupar com a implementação do protocolo de comunicação que usuário irá utilizar, com a formatação da resposta, o controle de acesso etc. Na visão do usuário, o serviço é a interface para a lógica da aplicação.
+
+O objetivo da arquitetura hexagonal é encapsular a lógica, de maneira que nada externo acesse-a diretamente, então, o meio de um usuário acessar uma informação gerada pela camada de domínio é através de um serviço. Ou seja, externamente, conheceremos apenas a camada de serviço, o objetivo e não expor publicamente nenhuma informação sequer diretamente da camada de domínio.
+
+Benefícios
+Quando falamos de arquitetura hexagonal as vezes lembramos um pouco de DDD, preocupação com o domínio da aplicação, encapsulamento e segurança do domínio etc, são coisas em comum entre eles. Isso nos faz refletir um pouco mais sobre a importância da lógica de uma aplicação para o negócio. Muitos projetos de desenvolvimento de software as vezes pensam muito nos dados, como serão armazenados, segurança, backup etc, e acabam esquecendo da lógica da aplicação, dos serviços. Muitas vezes, por uma falha ou falta de atenção na lógica, os dados acabam ficando vulneráveis ou sendo violados.
+
+Perceba que quando implementamos uma arquitetura hexagonal, a lógica da nossa aplicação fica totalmente independente de qualquer coisa, a grande vantagem já começa aí, nos testes. Para testarmos a camada de domínio, ou seja, a lógica da aplicação, não teremos dependência com nada, podemos fazer testes isolados e sem nenhuma interferência de outra camada.
+
+Com tantas variedades e evoluções que temos a cada dia, ontem usávamos SOAP, hoje usamos REST, amanhã iremos migrar para algo melhor, mais prático ou simplesmente mais novo. Se necessário mudar o protocolo, tecnologia ou simplesmente o formato de comunicação externa, a primeira coisa que pensamos é o quanto isso irá impactar na lógica, correto? E a resposta para essa pergunta quando se usa uma arquitetura hexagonal é NENHUMA. Se necessário mudar ou implementar um algo que seja relacionado a “área externa” da aplicação; tudo isso será na camada de serviço.
+
+Se o servidor não estiver aguentando a carga de acessos, ou a tecnologia usada não for mais adequada, podemos fazer uma melhoria apenas na camada de serviço, colocar em uma nova infraestrutura, migrar de tecnologia, etc; a lógica permanecerá intacta e segura.
+
+Desde os testes até a mantenabilidade, quanto temos uma aplicação corretamente divida, coesa e minimamente acoplada, tudo se torna menos doloroso, principalmente quando se fala de lógica e regra de negócio.
+
+Quando utilizar
+Qualquer aplicação pode ser arquitetada como hexagonal, porém devemos nos atentar se nossa aplicação está realmente precisando, se é factível tal migração ou implementação, nem sempre a melhor solução seja a adequada para determinados cenários. Arquitetura hexagonal traz bastante benefícios, em aplicações grandes com a divisão em camadas, em aplicações muito complexas com o encapsulamento da lógica, em aplicações com muita integração com a utilização de interfaces e serviços, tudo isso garante um aumento considerável na facilidade de manutenção e escalabilidade.
+
+Geralmente aplicações que possuem muitos sistemas consumidores são de difícil manutenção, quando necessário, o impacto externo também acaba sendo grande se os serviços não forem desacoplados da lógica.
+
+262
+
+
+
